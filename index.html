@@ -3,81 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculateur de poudre – GC Epox-Design</title>
-  <meta name="description" content="Calculateur de quantité de poudre pour thermolaquage (surface, épaisseur, densité, rendement).">
-  <link rel="stylesheet" href="styles.css">
+  <title>Accès GC Epox-Design</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-color: #0b0c0f;
+      background-image:
+        radial-gradient(circle at 1px 1px, #1b1c1f 1px, transparent 0),
+        radial-gradient(circle at 3px 3px, #131416 1px, transparent 0);
+      background-size: 6px 6px;
+      color: #e6e9ef;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+    .card {
+      background: #11141a;
+      border: 1px solid #1f2633;
+      border-radius: 12px;
+      padding: 30px 40px;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(0,0,0,.6);
+    }
+    h1 {
+      color: #2196f3;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #2a3140;
+      background: #0d111a;
+      color: #e6e9ef;
+      width: 200px;
+      font-size: 16px;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    input:focus {
+      outline: none;
+      border-color: #2196f3;
+    }
+    button {
+      margin-top: 14px;
+      padding: 10px 16px;
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:hover {
+      filter: brightness(1.15);
+    }
+    img {
+      width: 90px;
+      height: 90px;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="brand">
-      <!-- Si tu as un logo PNG/SVG, place-le dans le dossier et garde le nom 'logo.png' -->
-      <img src="logo.png" alt="GC Epox-Design" onerror="this.style.display='none'">
-      <div class="brand-text">
-        <h1>GC Epox-Design</h1>
-        <p class="tag">Calculateur de poudre de thermolaquage</p>
-      </div>
-    </div>
-  </header>
+  <div class="card">
+    <img src="logo.png" alt="Logo GC Epox-Design" onerror="this.style.display='none'">
+    <h1>GC Epox-Design</h1>
+    <p>Entrer le code d’accès :</p>
+    <input type="password" id="pass" placeholder="Mot de passe" />
+    <br>
+    <button onclick="checkPass()">Entrer</button>
+    <p id="msg" style="color:#f55;margin-top:10px;"></p>
+  </div>
 
-  <main>
-    <section class="card">
-      <h2>Paramètres</h2>
-      <div class="grid">
-        <label>Surface totale (m²)
-          <input id="surface" type="number" min="0" step="0.01" placeholder="ex. 5.5">
-        </label>
-
-        <label>Épaisseur visée (µm)
-          <input id="epaisseur" type="number" min="1" step="1" value="70">
-        </label>
-
-        <label>Densité poudre (g/cm³)
-          <input id="densite" type="number" min="0.5" step="0.01" value="1.5">
-        </label>
-
-        <label>Rendement transfert (%) 
-          <input id="rendement" type="number" min="1" max="100" step="1" value="60">
-        </label>
-      </div>
-
-      <details class="note">
-        <summary>Hypothèses & formule</summary>
-        <p>
-          Formule (approx.) : 
-          <code>kg = surface / (100 / (épaisseur(µm) × densité)) ÷ (rendement/100)</code>.<br>
-          1&nbsp;kg couvre ≈ <code>100 / (épaisseur × densité)</code> m² (théorique).<br>
-          Ajuster le rendement selon les pertes (surpulvérisation, reprise cabine, géométrie).
-        </p>
-      </details>
-
-      <div class="actions">
-        <button id="calculer" class="btn primary">Calculer</button>
-        <button id="reinitialiser" class="btn ghost">Réinitialiser</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Résultats</h2>
-      <div id="resultats" class="results">
-        <p>Entre tes valeurs puis clique sur <strong>Calculer</strong>.</p>
-      </div>
-    </section>
-
-    <section class="card tips">
-      <h2>Guides rapides</h2>
-      <ul>
-        <li>Épaisseurs usuelles : 60–80&nbsp;µm (mono-couche), 100–140&nbsp;µm (multi-couches).</li>
-        <li>Densité typique : 1.2–1.8 g/cm³ (polyester/époxy).</li>
-        <li>Rendement transfert : 50–70% (cabine manuelle), 70–85% (auto, pièces simples).</li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p><strong>GC Epox-Design</strong> • 38 route de la Pépinière, 67160 Wissembourg • 07.83.99.27.94</p>
-    <p>© GC Epox-Design — Outil fourni tel quel, à valider selon vos procédés.</p>
-  </footer>
-
-  <script src="script.js"></script>
+  <script>
+    function checkPass() {
+      const val = document.getElementById('pass').value.trim();
+      const msg = document.getElementById('msg');
+      if (val === "gcepoxdesign") {
+        sessionStorage.setItem("gc_access_ok", "yes");
+        window.location.href = "calculateur.html"; // redirige vers ton vrai site
+      } else {
+        msg.textContent = "❌ Code incorrect";
+      }
+    }
+  </script>
 </body>
 </html>
