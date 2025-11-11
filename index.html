@@ -4,90 +4,219 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accès GC Epox-Design</title>
+  <meta name="description" content="Accès sécurisé au calculateur de poudre – GC Epox-Design.">
+  <meta name="theme-color" content="#2196f3" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+
   <style>
-    body {
+    :root {
+      --bg: #0b0c0f;          /* fond carbone */
+      --text: #e6e9ef;
+      --muted: #9aa0ac;
+      --card: #11141a;
+      --border: #1f2633;
+      --primary: #2196f3;     /* bleu lumineux */
+      --primary-ink: #ffffff;
+    }
+
+    /* Fond carbone texturé */
+    html, body {
+      height: 100%;
       margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      background-color: #0b0c0f;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background-color: var(--bg);
       background-image:
         radial-gradient(circle at 1px 1px, #1b1c1f 1px, transparent 0),
         radial-gradient(circle at 3px 3px, #131416 1px, transparent 0);
       background-size: 6px 6px;
-      color: #e6e9ef;
-      font-family: "Inter", system-ui, sans-serif;
     }
+
+    .wrap {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
+
     .card {
-      background: #11141a;
-      border: 1px solid #1f2633;
-      border-radius: 12px;
-      padding: 30px 40px;
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px 22px;
       text-align: center;
-      box-shadow: 0 3px 8px rgba(0,0,0,.6);
+      box-shadow: 0 6px 16px rgba(0,0,0,.55);
+      backdrop-filter: blur(3px);
     }
-    h1 {
-      color: #2196f3;
-      margin-bottom: 20px;
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
     }
-    input {
-      padding: 10px 14px;
-      border-radius: 8px;
+
+    .brand img {
+      width: 88px; height: 88px; object-fit: contain;
+      filter: drop-shadow(0 1px 1px rgba(0,0,0,.25));
+    }
+
+    .brand h1 {
+      font-size: 1.35rem;
+      margin: 0;
+      color: var(--primary);
+      letter-spacing: .4px;
+    }
+
+    p.sub {
+      margin: 4px 0 0 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .field {
+      margin-top: 16px;
+      display: grid;
+      gap: 8px;
+      justify-items: center;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      width: 100%;
+    }
+
+    input[type="password"], input[type="text"] {
+      padding: 12px 14px;
+      border-radius: 10px;
       border: 1px solid #2a3140;
       background: #0d111a;
-      color: #e6e9ef;
-      width: 200px;
+      color: var(--text);
+      width: 100%;
       font-size: 16px;
-      text-align: center;
       letter-spacing: 2px;
+      text-align: center;
+      transition: border .2s, box-shadow .2s;
     }
+
     input:focus {
       outline: none;
-      border-color: #2196f3;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(33,150,243,.15);
     }
-    button {
-      margin-top: 14px;
-      padding: 10px 16px;
-      background: #2196f3;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
+
+    .toggle {
+      padding: 0 12px;
+      border: 1px solid #2a3140;
+      background: #0d111a;
+      color: var(--muted);
+      border-radius: 10px;
       cursor: pointer;
     }
-    button:hover {
-      filter: brightness(1.15);
+
+    .btn {
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: var(--primary);
+      color: var(--primary-ink);
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: filter .15s;
     }
-    img {
-      width: 90px;
-      height: 90px;
-      margin-bottom: 10px;
+    .btn:hover { filter: brightness(1.12); }
+
+    .msg { min-height: 22px; margin-top: 8px; color: #ff6b6b; }
+
+    .hint {
+      margin-top: 14px;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 12px;
+      font-size: .85rem;
+      color: var(--muted);
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <img src="logo.png" alt="Logo GC Epox-Design" onerror="this.style.display='none'">
-    <h1>GC Epox-Design</h1>
-    <p>Entrer le code d’accès :</p>
-    <input type="password" id="pass" placeholder="Mot de passe" />
-    <br>
-    <button onclick="checkPass()">Entrer</button>
-    <p id="msg" style="color:#f55;margin-top:10px;"></p>
+  <div class="wrap">
+    <div class="card">
+      <div class="brand">
+        <img src="logo.png" alt="Logo GC Epox-Design" onerror="this.style.display='none'">
+        <h1>GC Epox-Design</h1>
+        <p class="sub">Accès au calculateur de poudre</p>
+      </div>
+
+      <div class="field">
+        <label for="pass" style="display:none">Code d’accès</label>
+        <div class="input-row">
+          <input type="password" id="pass" placeholder="Code d’accès" autocomplete="current-password" />
+          <button class="toggle" id="toggle">👁</button>
+        </div>
+        <button class="btn" id="enter">Entrer</button>
+        <div class="msg" id="msg"></div>
+        <div class="hint">Astuce : ajoute cette page à l’écran d’accueil pour l’utiliser comme une app.</div>
+      </div>
+
+      <footer>© GC Epox-Design — Accès privé</footer>
+    </div>
   </div>
 
   <script>
-    function checkPass() {
-      const val = document.getElementById('pass').value.trim();
-      const msg = document.getElementById('msg');
-      if (val === "gcepoxdesign") {
-        sessionStorage.setItem("gc_access_ok", "yes");
-        window.location.href = "calculateur.html"; // redirige vers ton vrai site
-      } else {
-        msg.textContent = "❌ Code incorrect";
+    // --- Config ---
+    const PASSWORD = "gcepoxdesign";
+    const GATE_KEY = "gc_access_ok";
+    const DEST = "calculateur.html";
+
+    // Afficher/masquer le mot de passe
+    const passEl = document.getElementById("pass");
+    const toggleEl = document.getElementById("toggle");
+    const enterEl = document.getElementById("enter");
+    const msgEl = document.getElementById("msg");
+
+    toggleEl.addEventListener("click", () => {
+      passEl.type = passEl.type === "password" ? "text" : "password";
+      toggleEl.textContent = passEl.type === "password" ? "👁" : "🙈";
+      passEl.focus();
+    });
+
+    // Entrée avec bouton et touche Enter
+    function attempt() {
+      const val = passEl.value.trim();
+      if (!val) {
+        msgEl.textContent = "Veuillez saisir le code d’accès.";
+        return;
       }
+      if (val === PASSWORD) {
+        sessionStorage.setItem(GATE_KEY, "yes");
+        window.location.href = DEST;
+      } else {
+        msgEl.textContent = "❌ Code incorrect";
+      }
+    }
+    enterEl.addEventListener("click", attempt);
+    passEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") attempt();
+    });
+
+    // PWA: service worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(console.error);
+      });
     }
   </script>
 </body>
