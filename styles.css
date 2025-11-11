@@ -1,16 +1,161 @@
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;color:#111;background:#f8f8f8}
-header{padding:32px 16px;text-align:center;background:#f5f5f7}
-h1{margin:0 0 8px 0;font-size:clamp(1.8rem,2.5vw,2.4rem)}
-main{max-width:900px;margin:24px auto;padding:0 16px}
-.card{background:#fff;border:1px solid #e6e6e6;border-radius:12px;padding:16px 16px 20px 16px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:8px}
-label{display:flex;flex-direction:column;gap:6px;font-weight:600}
-input{padding:10px 12px;border:1px solid #dcdcdc;border-radius:10px;font-size:14px}
-.actions{display:flex;gap:8px;margin-top:12px}
-button{padding:10px 14px;border-radius:10px;border:1px solid #111;background:#111;color:#fff;cursor:pointer;font-weight:600}
-button.ghost{background:transparent;color:#111}
-.note{margin-top:10px}
-.results{padding:8px 12px;background:#fafafa;border:1px dashed #ddd;border-radius:10px;min-height:48px}
-footer{padding:32px 16px;text-align:center;color:#555}
-code{background:#f0f0f0;padding:2px 6px;border-radius:6px}
+:root {
+  --bg: #0b0c0f;          /* fond carbone */
+  --text: #e6e9ef;        /* texte clair */
+  --muted: #9aa0ac;
+  --card: #11141a;        /* cartes bleu-noir */
+  --border: #1f2633;
+  --primary: #2196f3;     /* bleu lumineux */
+  --primary-ink: #ffffff;
+}
+
+/* Texture effet carbone */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 1px 1px, #1b1c1f 1px, transparent 0),
+    radial-gradient(circle at 3px 3px, #131416 1px, transparent 0);
+  background-size: 6px 6px;
+}
+
+/* ---- HEADER ---- */
+.site-header {
+  background: linear-gradient(180deg, #0b0c0f 0%, #141922 100%);
+  color: #fff;
+  padding: 22px 16px;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 6px rgba(0,0,0,.5);
+}
+.brand {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.brand img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.25));
+}
+.brand-text h1 {
+  font-size: 1.4rem;
+  margin: 0;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+.brand-text .tag {
+  margin: 2px 0 0 0;
+  color: var(--muted);
+}
+
+/* ---- CONTENU ---- */
+main {
+  max-width: 1000px;
+  margin: 22px auto;
+  padding: 0 16px;
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 16px 20px 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 6px rgba(0,0,0,.6);
+  backdrop-filter: blur(3px);
+}
+.card h2 {
+  margin: 0 0 8px 2px;
+  font-size: 1.05rem;
+  color: var(--primary);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+input {
+  padding: 11px 12px;
+  border: 1px solid #2a3140;
+  border-radius: 10px;
+  font-size: 14px;
+  background: #0d111a;
+  color: var(--text);
+  transition: border 0.2s;
+}
+input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+.note {
+  margin-top: 10px;
+}
+.note summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.results {
+  padding: 10px 12px;
+  background: #0d111a;
+  border: 1px dashed #2a3140;
+  border-radius: 10px;
+  min-height: 48px;
+}
+
+/* ---- BOUTONS ---- */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.btn {
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--primary);
+  font-weight: 700;
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn.primary {
+  background: var(--primary);
+  color: var(--primary-ink);
+}
+.btn.primary:hover {
+  filter: brightness(1.15);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--primary);
+}
+.btn.ghost:hover {
+  background: rgba(33,150,243,0.1);
+}
+
+/* ---- DIVERS ---- */
+.tips {
+  border-left: 4px solid var(--primary);
+}
+.site-footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 26px 16px;
+  font-size: 0.9rem;
+}
+code {
+  background: #1b1e24;
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: var(--primary);
+}
