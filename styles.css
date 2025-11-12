@@ -3,28 +3,21 @@
   --card:#11141a; --border:#1f2633;
   --primary:#2196f3; --primary-ink:#fff;
 }
-
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif}
-
-/* fond carbone */
 body{
   background-image:
-    radial-gradient(circle at 1px 1px, #1b1c1f 1px, transparent 0),
-    radial-gradient(circle at 3px 3px, #131416 1px, transparent 0);
+    radial-gradient(circle at 1px 1px,#1b1c1f 1px,transparent 0),
+    radial-gradient(circle at 3px 3px,#131416 1px,transparent 0);
   background-size:6px 6px;
 }
-
-/* header */
 .site-header{background:linear-gradient(180deg,#0b0c0f,#141922);
   border-bottom:1px solid var(--border);box-shadow:0 2px 6px rgba(0,0,0,.5)}
 .brand{max-width:1100px;margin:0 auto;padding:16px;display:flex;align-items:center;gap:12px}
 .brand img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
 .brand h1{margin:0;font-size:1.6rem;color:var(--primary)}
-.brand .tag{margin:2px 0 0 0;color:var(--muted);font-size:.95rem}
-
-/* layout */
+.brand .tag{margin:2px 0 0;color:var(--muted);font-size:.95rem}
 main{max-width:1100px;margin:18px auto;padding:0 16px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 3px 8px rgba(0,0,0,.6);padding:18px}
 .panel h2{margin-top:0;color:var(--primary)}
@@ -38,7 +31,5 @@ input[type="number"]{padding:10px 12px;border:1px solid #2a3140;border-radius:10
 .result-box{margin-top:14px;padding:14px;background:#0f131a;border:1px solid var(--border);border-radius:10px}
 .hint{color:var(--muted);margin-top:10px}
 .site-footer{text-align:center;color:var(--muted);padding:18px}
-
-/* page d'accès */
 .gate main{display:grid;place-items:center;min-height:60vh}
 .center{display:grid;place-items:center}
