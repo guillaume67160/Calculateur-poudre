@@ -4,14 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accès – GC Epox-Design</title>
+  <meta name="description" content="Accès sécurisé au calculateur de poudre GC Epox-Design.">
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#2196f3" />
+  <link rel="apple-touch-icon" href="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" />
 </head>
 <body class="gate">
+  <!-- Sécurité : on nettoie d’anciens SW/caches au cas où -->
   <script>
-    // ⚠️ Désactive tout ancien Service Worker pour supprimer le “blanc”
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-      caches && caches.keys && caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+      if (window.caches?.keys) caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
     }
   </script>
 
@@ -43,15 +49,22 @@
   </footer>
 
   <script>
+    // Accès par mot de passe
     const PASSWORD = "gcepoxdesign";
     const KEY = "gc_access_ok";
+    const msgEl = document.getElementById('msg');
     function go(){
       const v = (document.getElementById('pass').value||"").trim();
       if(v === PASSWORD){ sessionStorage.setItem(KEY,"yes"); location.href="calculateur.html"; }
-      else { document.getElementById('msg').textContent="❌ Code incorrect."; }
+      else { msgEl.textContent = "❌ Code incorrect."; }
     }
     document.getElementById('enter').addEventListener('click', go);
     document.getElementById('pass').addEventListener('keydown', e=>{ if(e.key==='Enter') go(); });
+
+    // Enregistrement du Service Worker (PWA)
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
+    }
   </script>
 </body>
 </html>
