@@ -4,80 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calculateur de poudre – GC Epox-Design</title>
-  <meta name="description" content="Calculateur de quantité de poudre pour thermolaquage (surface, épaisseur, densité, rendement).">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <script>
+    // Empêche d'entrer sans mot de passe
+    if (sessionStorage.getItem("gc_access_ok") !== "yes") {
+      location.href = "index.html";
+    }
+  </script>
+
   <header class="site-header">
     <div class="brand">
-      <!-- Si tu as un logo PNG/SVG, place-le dans le dossier et garde le nom 'logo.png' -->
-      <img src="logo.png" alt="GC Epox-Design" onerror="this.style.display='none'">
-      <div class="brand-text">
-        <h1>GC Epox-Design</h1>
-        <p class="tag">Calculateur de poudre de thermolaquage</p>
+      <img src="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" alt="Logo GC Epox-Design">
+      <div>
+        <h1>Calculateur de poudre</h1>
+        <p class="tag">GC Epox-Design • Sablage & Thermolaquage</p>
       </div>
     </div>
   </header>
 
   <main>
-    <section class="card">
-      <h2>Paramètres</h2>
-      <div class="grid">
+    <section class="card panel">
+      <h2>Calculateur de consommation de poudre</h2>
+
+      <div class="controls">
         <label>Surface totale (m²)
-          <input id="surface" type="number" min="0" step="0.01" placeholder="ex. 5.5">
+          <input type="number" id="surface" min="0" step="0.01" placeholder="ex : 2.50">
         </label>
 
         <label>Épaisseur visée (µm)
-          <input id="epaisseur" type="number" min="1" step="1" value="70">
+          <input type="number" id="epaisseur" min="1" step="1" value="80" placeholder="ex : 80">
         </label>
 
         <label>Densité poudre (g/cm³)
-          <input id="densite" type="number" min="0.5" step="0.01" value="1.5">
+          <input type="number" id="densite" min="0.5" max="2.2" step="0.01" value="1.50" placeholder="ex : 1.50">
         </label>
 
-        <label>Rendement transfert (%) 
-          <input id="rendement" type="number" min="1" max="100" step="1" value="60">
+        <label>Rendement transfert (%)
+          <input type="number" id="rendement" min="1" max="100" step="1" value="60" placeholder="ex : 60">
         </label>
+
+        <button class="btn primary" id="calculer">Calculer</button>
+        <button class="btn ghost" id="reinitialiser">Réinitialiser</button>
       </div>
 
-      <details class="note">
+      <div id="resultat" class="result-box">
+        <h3>Résultats</h3>
+        <p id="texteResultat">Entrez vos valeurs pour commencer.</p>
+      </div>
+
+      <details class="hint">
         <summary>Hypothèses & formule</summary>
-        <p>
-          Formule (approx.) : 
-          <code>kg = surface / (100 / (épaisseur(µm) × densité)) ÷ (rendement/100)</code>.<br>
-          1&nbsp;kg couvre ≈ <code>100 / (épaisseur × densité)</code> m² (théorique).<br>
-          Ajuster le rendement selon les pertes (surpulvérisation, reprise cabine, géométrie).
-        </p>
+        <p>Masse théorie (kg) = Surface(m²) × Épaisseur(µm) × Densité(g/cm³) / 1000.<br>
+        Quantité à pulvériser = Masse théorie / (Rendement/100). +5% de marge optionnelle.</p>
       </details>
-
-      <div class="actions">
-        <button id="calculer" class="btn primary">Calculer</button>
-        <button id="reinitialiser" class="btn ghost">Réinitialiser</button>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>Résultats</h2>
-      <div id="resultats" class="results">
-        <p>Entre tes valeurs puis clique sur <strong>Calculer</strong>.</p>
-      </div>
-    </section>
-
-    <section class="card tips">
-      <h2>Guides rapides</h2>
-      <ul>
-        <li>Épaisseurs usuelles : 60–80&nbsp;µm (mono-couche), 100–140&nbsp;µm (multi-couches).</li>
-        <li>Densité typique : 1.2–1.8 g/cm³ (polyester/époxy).</li>
-        <li>Rendement transfert : 50–70% (cabine manuelle), 70–85% (auto, pièces simples).</li>
-      </ul>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p><strong>GC Epox-Design</strong> • 38 route de la Pépinière, 67160 Wissembourg • 07.83.99.27.94</p>
-    <p>© GC Epox-Design — Outil fourni tel quel, à valider selon vos procédés.</p>
+    <p>© 2025 GC Epox-Design – 38 route de la Pépinière, 67160 Wissembourg • 07.83.99.27.94</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
