@@ -1,4 +1,5 @@
-const CACHE_VERSION = 'gc-poudre-v5';
+// GC Epox-Design — Service Worker
+const CACHE_VERSION = 'gc-poudre-v1';
 const STATIC_CACHE  = `static-${CACHE_VERSION}`;
 
 const ASSETS = [
@@ -11,11 +12,13 @@ const ASSETS = [
   './04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png'
 ];
 
+// Install : pré-cache
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(caches.open(STATIC_CACHE).then(cache => cache.addAll(ASSETS)));
 });
 
+// Activate : nettoie anciens caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -24,7 +27,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// HTML: réseau d'abord ; autres: cache d'abord
+// Fetch : HTML réseau d'abord, autres cache d'abord
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const isHTML = req.headers.get('accept')?.includes('text/html');
