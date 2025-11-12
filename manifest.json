@@ -1,7 +1,7 @@
 {
   "name": "Calculateur de poudre - GC Epox-Design",
   "short_name": "GC Epox",
-  "description": "Application de calcul de consommation de poudre pour le thermolaquage.",
+  "description": "Calcul basé sur 250 g/m² à 80 µm avec rendement.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -11,12 +11,14 @@
     {
       "src": "./04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "./04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
