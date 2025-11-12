@@ -3,80 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculateur de poudre - GC Epox-Design</title>
-
-  <!-- Styles -->
+  <title>Accès – GC Epox-Design</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#2196f3" />
-  <!-- iOS (utilise le même logo) -->
-  <link rel="apple-touch-icon" href="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Calculateur de poudre" />
-  <meta name="description" content="Application de calcul de consommation de poudre pour le thermolaquage (GC Epox-Design)." />
 </head>
-<body>
-  <!-- En-tête -->
+<body class="gate">
   <header class="site-header">
     <div class="brand">
-      <img src="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" alt="Logo GC Epox-Design" />
+      <img src="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" alt="Logo GC Epox-Design">
       <div>
-        <h1>Calculateur de poudre</h1>
-        <p class="tag">GC Epox-Design • Sablage & Thermolaquage</p>
+        <h1>GC Epox-Design</h1>
+        <p class="tag">Accès au calculateur de poudre</p>
       </div>
     </div>
   </header>
 
-  <!-- Contenu -->
-  <main>
-    <section class="card panel">
-      <h2>Calculateur de consommation de poudre</h2>
-
+  <main class="center">
+    <div class="card panel" style="max-width:420px;">
+      <h2>Entrez le code d’accès</h2>
       <div class="controls">
-        <label>Surface totale (m²)
-          <input type="number" id="surface" min="0" step="0.01" placeholder="ex : 2.50" />
+        <label>Mot de passe
+          <input type="password" id="pass" placeholder="gcepoxdesign">
         </label>
-
-        <label>Épaisseur moyenne (µm)
-          <input type="number" id="epaisseur" min="1" step="1" placeholder="ex : 80" />
-        </label>
-
-        <label>Rendement (%)
-          <input type="number" id="rendement" min="1" max="100" step="1" placeholder="ex : 85" />
-        </label>
-
-        <button class="btn primary" id="calculer">Calculer</button>
+        <button class="btn primary" id="enter">Entrer</button>
+        <p id="msg" class="hint" style="margin-top:8px;color:#ff6b6b;"></p>
       </div>
-
-      <div id="resultat" class="result-box">
-        <h3>Résultat :</h3>
-        <p id="texteResultat">Entrez vos valeurs pour commencer.</p>
-      </div>
-
-      <details class="hint">
-        <summary>Notes</summary>
-        <p>Vérifiez vos paramètres (surface, µm, rendement). Résultat indicatif à valider selon vos procédés.</p>
-      </details>
-    </section>
+    </div>
   </main>
 
-  <!-- Pied de page -->
   <footer class="site-footer">
     <p>© 2025 GC Epox-Design – 38 route de la Pépinière, 67160 Wissembourg • 07.83.99.27.94</p>
   </footer>
 
-  <!-- App JS -->
-  <script src="app.js"></script>
-
-  <!-- Enregistrement du Service Worker (PWA) -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(console.error);
-      });
+    const PASSWORD = "gcepoxdesign";
+    const KEY = "gc_access_ok";
+    document.getElementById('enter').addEventListener('click', go);
+    document.getElementById('pass').addEventListener('keydown', e=>{ if(e.key==='Enter') go(); });
+    function go(){
+      const v = (document.getElementById('pass').value||"").trim();
+      if(v === PASSWORD){
+        sessionStorage.setItem(KEY, "yes");
+        location.href = "calculateur.html";
+      } else {
+        document.getElementById('msg').textContent = "❌ Code incorrect.";
+      }
     }
   </script>
 </body>
