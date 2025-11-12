@@ -1,68 +1,20 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculateur de poudre – GC Epox-Design</title>
-  <meta name="description" content="Calcul précis de consommation de poudre (surface, épaisseur, densité, rendement).">
-  <link rel="stylesheet" href="styles.css" />
+<div class="controls">
+  <label>Surface totale (m²)
+    <input type="number" id="surface" min="0" step="0.01" placeholder="ex : 2.50">
+  </label>
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#2196f3" />
-  <link rel="apple-touch-icon" href="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" />
-</head>
-<body>
-  <script> if (sessionStorage.getItem("gc_access_ok") !== "yes") location.href = "index.html"; </script>
+  <label>Épaisseur visée (µm)
+    <input type="number" id="epaisseur" min="1" step="1" value="80" placeholder="ex : 80">
+  </label>
 
-  <header class="site-header">
-    <div class="brand">
-      <img src="04331F25-6EC7-4A53-AA4A-A03E86CD5B80.png" alt="Logo GC Epox-Design">
-      <div>
-        <h1>Calculateur de poudre</h1>
-        <p class="tag">GC Epox-Design • Sablage & Thermolaquage</p>
-      </div>
-    </div>
-  </header>
+  <label>Rendement d’application (%)
+    <input type="number" id="rendement" min="1" max="100" step="1" value="70" placeholder="ex : 70">
+  </label>
 
-  <main>
-    <section class="card panel">
-      <h2>Calculateur de consommation de poudre</h2>
+  <label>Prix poudre (€/kg) — optionnel
+    <input type="number" id="prix" min="0" step="0.01" placeholder="ex : 8.00">
+  </label>
 
-      <div class="controls">
-        <label>Surface totale (m²)
-          <input type="number" id="surface" min="0" step="0.01" placeholder="ex : 2.50">
-        </label>
-        <label>Épaisseur visée (µm)
-          <input type="number" id="epaisseur" min="1" step="1" value="80" placeholder="ex : 80">
-        </label>
-        <label>Densité poudre (g/cm³)
-          <input type="number" id="densite" min="0.5" max="2.2" step="0.01" value="1.50" placeholder="ex : 1.50">
-        </label>
-        <label>Rendement transfert (%)
-          <input type="number" id="rendement" min="1" max="100" step="1" value="60" placeholder="ex : 60">
-        </label>
-        <button class="btn primary" id="calculer">Calculer</button>
-        <button class="btn ghost" id="reinitialiser">Réinitialiser</button>
-      </div>
-
-      <div id="resultat" class="result-box">
-        <h3>Résultats</h3>
-        <p id="texteResultat">Entrez vos valeurs pour commencer.</p>
-      </div>
-
-      <details class="hint">
-        <summary>Hypothèses & formule</summary>
-        <p>Masse (kg) = Surface(m²) × Épaisseur(µm) × Densité(g/cm³) / 1000.<br>
-        À pulvériser = Masse / (Rendement/100). +5% de marge optionnelle.</p>
-      </details>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>© 2025 GC Epox-Design – 38 route de la Pépinière, 67160 Wissembourg • 07.83.99.27.94</p>
-  </footer>
-
-  <script src="app.js" defer></script>
-</body>
-</html>
+  <button class="btn primary" id="calculer">Calculer</button>
+  <button class="btn ghost" id="reinitialiser">Réinitialiser</button>
+</div>
